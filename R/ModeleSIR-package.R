@@ -59,13 +59,36 @@ picI <- function(beta,gamma, data){
   R0 <- beta/gamma
   pic <- max(data[,3])
   date <- data[which.max(data[,3]),1]
-  return(list(PicI = pic, datePicI = date, R0pic = R0))
+  return(data.frame(PicI = pic, datePicI = date, R0pic = R0))
 }
 
 
 ####################
 
 
+picI2 <- function(t,dt,p,m1,m2,sd1,sd2){
+  beta <- sort(abs(rnorm(1,m1,sd1)))
+  gamma <- sort(abs(rnorm(1,m2,sd2)))
+  R0 <- beta/gamma
+  s0 <- p #proportion
+  i0 <- 1 - p
+  r0 <- 0
+  tps  <- floor(t/dt)    #nombre d'itération  : floor(t/dt)
+  resS <- rep(s0, tps)
+  resI <- rep(i0, tps)
+  resR <- rep(r0, tps)
+  j <- c(1:tps)
+  for(i in 2:tps)
+  {
+    resS[i] <- resS[i-1] + (-beta * resI[i-1] * resS[i-1]) * dt
+    resI[i] <- resI[i-1] + (beta * resS[i-1] * resI[i-1] - gamma * resI[i-1]) * dt
+    resR[i] <- resR[i-1] + (gamma * resI[i-1]) * dt
+  }
+  df <- data.frame(j,resS,resI,resR)
+  pic <- max(df[,3])
+  date <- df[which.max(df[,3]),1]
+  return(data.frame(PicI = pic, datePicI = date, R0pic = R0))
+}
 
 
 
