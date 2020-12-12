@@ -25,6 +25,27 @@ seir <- function(t, dt,p,beta,gamma, alpha, mu, nu){
     resR[i] <- resR[i-1] + (gamma * resI[i-1] - mu * resR[i-1] ) * dt
     resN[i] <- resS[i-1] + resE[i-1] + resI[i-1] + resR[i-1]
   }
-  df2 <- data.frame(j,resS,resE, resI,resR, resN)
-  return(df2)
+  df <- data.frame(j,resS,resE, resI,resR, resN)
+  return(df)
+}
+
+
+
+tirageBeta <- function(moy,var){
+  beta <- sort(abs(rnorm(1,moy,var)))
+  return(beta)
+}
+
+tirageGamma <- function(m,sd){
+  gamma <- sort(abs(rnorm(1,m,sd)))
+  return(gamma)
+}
+
+
+
+picI <- function(beta,gamma, data){
+  R0 <- beta/gamma
+  pic <- max(data[,3])
+  date <- data[which.max(data[,3]),1]
+  return(list(PicI = pic, datePicI = date, R0pic = R0))
 }

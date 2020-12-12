@@ -487,14 +487,12 @@ $$N(t)=S(t)+E(t)+I(t)+R(t)$$
 
 
 ```{r}
-df2 <- seir(100,0.01,0.88889999,0.8,0.05,0.75,0,0)
+dfseir <- seir(100,0.01,0.88889999,0.8,0.05,0.75,0,0)
 
-head(df2)
+head(dfseir)
 
 theme_set(theme_minimal())
 
-ggplot(df2, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                       geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+                            theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
-
-#+ geom_line(aes(y = resN), color = "black")
+ggplot(dfseir, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+                            theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 ```
