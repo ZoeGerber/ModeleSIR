@@ -42,7 +42,7 @@ Le projet que nous allons traiter est le **Projet 4 : le modèle SIR**.
 #### 1.1.  Le Modèle SIR : dynamique des épidémies
 
 
-Le **modèle SIR** propose de représenter une épidémie en compartimentant les individus d'une population N constante (on néglige la natalité et la mortalité) en sous populations dynamiques au cours du temps _t_ : _sains_ **$S(t)$**, _infectés_ **$I(t)$** et _guéris_ **$R(t)$**. Dans ce modèle, on considère les personnes guéries comme immunisées, c'est pourquoi on différentie les deux sous-populations $S(t)$ et $R(t)$.
+Le **modèle SIR** propose de représenter une épidémie en compartimentant les individus d'une population N constante (on néglige la natalité et la mortalité) en sous populations dynamiques au cours du temps _t_ : _sains_ **$S(t)$**, _infectés_ **$I(t)$** et _retirés_ **$R(t)$**. Dans ce modèle, on considère les personnes retirées comme immunisées ou mortes, c'est pourquoi on différentie les deux sous-populations $S(t)$ et $R(t)$.
 
 Le modèle SIR est donc un modèle permettant de modeliser une épidémie, c'est-à-dire de prédire la transmission d'un pathogène entre les individus, les infections, et qu'il ne prend pas en compte la prédiction de la mortalité de l'épidémie.
 
@@ -54,7 +54,7 @@ Introduisons deux variables $\beta$ et $\gamma$ qui nous permettront de définir
 
 $$\beta\ \ \ \ \ \ \ \ \gamma\\  S  \longrightarrow I \longrightarrow  R  $$
 
-Le taux de transmission $\beta$ est donc le passage des personnes saines à infectées et le taux de guérison $\gamma$ est le passage des personnes infectées à guéries.
+Le taux de transmission $\beta$ est donc le passage des personnes saines à infectées et le taux de guérison $\gamma$ est le passage des personnes infectées à retirées.
 
 #### 1.2.  Le système d'équations différentielles
 
@@ -90,7 +90,7 @@ Dans les conditions initiales, on donne S(0), I(0) et R(0) :
 
  *  $0 \leqslant S(0)= s_0 \leqslant 1$  (valeur très proche de 1)
  *  $0 \leqslant I(0)= i_0 \leqslant 1$  (valeur très proche de 0)
- *  $R(0)= r_0 =0$ (on considère aucune personne guéries au début de l'épidémie)
+ *  $R(0)= r_0 =0$ (on considère aucune personne morte ou immunisée au début de l'épidémie)
  
 A t=0 on peut écrire :
 
@@ -111,20 +111,21 @@ Reprenons l'équation 2 :
 $$ I'(t) = \beta S(t)  I(t) - \gamma  I(t) \\= \gamma I (t)(\frac{\beta I(t) S(t)}{\gamma I(t)} -1) \\= \gamma I(t) (\frac{\beta  S(t)}{\gamma } -1) \\ =\gamma I(t) (R_0 S(t) -1)$$
 On identifie $R_0 = \frac{\beta}{\gamma}$ comme le *coefficient de contact*. 
 
-C'est ce coefficient là que les gouvernement tentent de maitriser lors de la propagation d'une épidémie. Notamment avec les mesures de confinement actuelles pour limiter le contact entre les personnes saines et malades, et ainsi, réduire les contamminations.
+C'est ce coefficient là que les gouvernement tentent de maitriser lors de la propagation d'une épidémie. Notamment avec les mesures de confinement actuelles pour limiter le contact entre les personnes saines et malades, et ainsi, réduire les contaminations.
 
 Nous allons pouvoir evaluer le comportement de I'(t) grâce à ce coefficient $R_0$. En effet, nous savons que $\gamma I$ est forcément positif, donc c'est bien la valeur de $R_0 S(t) - 1$ qui determine le signe de $\gamma I'(t)$.
 
- * Si $R_0 s_0 < 1$ alors $I'(0) < 0$, ce qui veut dire que $I(t)$ *décroit*, l'épidémie prend fin.
- * Si $R_0 s_0 > 1$ alors $I'(0) > 0$, ce qui veut dire que $I(t)$ *croit*, et atteint une valeur maximale : c'est le **pic de l'épidemie**.
+ * Si $R_0 < 1/S_0$ alors $I'(0) < 0$, ce qui veut dire que $I(t)$ *décroit*, l'épidémie prend fin.
+ * Si $R_0 > 1/S_0 = 1/p$ alors $I'(0) > 0$, ce qui veut dire que $I(t)$ *croit*, et atteint une valeur maximale : c'est le **pic de l'épidemie**.
  
- 
+
+On constate donc que pour $R_0$ fixé, plus$p$ est grand (plus il y a déjà de malades), plus il est peu probable de voir un pic, l'épidémie sera totalement sous contôle.
 En effet, si un malade peut contaminer plus d'une personne ($R_0 >1$) la maladie va flamber.
 
 
 ### 2. Simulation de l'épidémie avec R
 
-#### 2.1. Package 
+#### 2.1. Packages
 
 Installation du package crée pour ce projet :
 
@@ -137,6 +138,7 @@ Dans ce pakage ce trouve toutes les fonctions nécessaires pour réaliser ces si
 
 
 Nous nous servirons également du package ggplot2 pour tracer nos courbes :
+
 ```{r}
 library(ggplot2)
 ```
@@ -204,7 +206,7 @@ Ce qui va nous interresser, c'est de pouvoir réaliser ces calcul avec R.
 
 Au début de l'épidémie (t=0) on a $p$ personnes saines, et $1-p$ personnes infectées.
 
-Il n'y a aucune personne guéries au début de l'épidémie
+Il n'y a aucune personne retirées au début de l'épidémie.
 
 *$p$* est donc la proportion de personnes saines au commencement de l'épidémie. (Cf fonction dans le package)
 
@@ -217,19 +219,20 @@ Les paramètres qui vont pouvoir être modifiés et ajustés au cours des simula
  * La proportion de personnes $p$ saines au début de l'épidémie
  * La durée de la simulation (vecteur donné en jours)
 
-a. Fractions initiales affichées (à t=0) de N qui sont Sains, Infectés et Guéris :
+a. Fractions initiales affichées (à t=0) de N qui sont Sains, Infectés et Retirés :
+
 ```{r}
 initSir(0.9)
 ```
 
 b. Paramètres variables $\beta$ et de $\gamma$, qu'on suppose ne pas connaitre :
 
-Nous avons choisi de modéliser le $R_0$ par une loi normale.
+Nous avons choisi de modéliser le $R_0$ par une loi uniforme (valeurs comprises entre 0.01 et 0.99).
 
 ```{r}
-beta <- tirageBeta(0.8,1)
+beta <- tirageBeta(0.01,0.99)
 print(beta)
-gamma <- tirageGamma(0.02,1)
+gamma <- tirageGamma(0.01,0.99)
 print(gamma)
 
 R0 <- beta/gamma
@@ -243,24 +246,26 @@ Pour cet exemple, choisissons :
 
  * Taux de transmission $\beta = 0.8$
  * Taux de guérison $\gamma=0.02$
- * Proportion de personnes saines $p=0.7888999$ au début de l'épidémie
- * Durée de la simulation : 50jours
+ * Proportion de personnes saines $p=0.7888999$ au début de l'épidémie (choix arbitraire)
+ * Durée de la simulation : 100jours
  * $\Delta t= 0.001$
  
 On part donc du **postulat** que le virus se transmet facilement, et dont on guérit plutôt mal. La valeur du $R_0$ est de 40.
 
 ```{r}
-df <- sir(50,0.01,0.7888999,0.8,0.02)
+df <- sir(100,0.01,0.7888999,0.8,0.02)
 
 head(df)
 
 theme_set(theme_minimal())
 
-ggplot(df, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et guéries(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(df, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et retirées(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+picI(0.8,0.02,df)
 
 ```
 
-En rouge la courbes des personnes **Infectées**, en bleu celle des **Guéries** et en vert celle des personnes **Saines**
+En rouge la courbes des personnes **Infectées**, en bleu celle des **Retirées** et en vert celle des personnes **Saines**
 
 On observe que le pic de l'épidémie dans ces conditions fixées est haut (quasiment toute la population a attrapé le virus (88,7%)) et se touve aux alentour du 10ème jour.Chaque personne malade contamine 40 personnes, ce qui est énorme.
 
@@ -281,14 +286,16 @@ Augmentons donc le taux de guérison $\gamma$ :
  * Taux de transmission $\beta = 0.8$
  * Taux de guérison $\gamma=0.099$
  * Proportion de personnes saines $p=0.78885555$ au début de l'épidémie
- * Durée de la simulation : 50 jours
+ * Durée de la simulation : 100 jours
  * $\Delta t= 0.01$
 
 ```{r}
 df2 <- sir(50,0.01,0.78885555,0.8,0.099)
 theme_set(theme_minimal())
 
-ggplot(df2, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et guéries(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(df2, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et retirées(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+picI(0.8,0.099,df2)
 ```
 
 
@@ -305,14 +312,16 @@ Diminuons donc le taux de transmission $\beta$ :
  * Taux de transmission $\beta = 0.06$
  * Taux de guérison $\gamma=0.02$
  * Proportion de personnes saines $p=0.78885555$ au début de l'épidémie
- * Durée de la simulation : 50 jours
+ * Durée de la simulation : 100 jours
  * $\Delta t= 0.01$
 
 ```{r}
-df3 <- sir(50,0.01,0.78885555,0.06,0.02)
+df3 <- sir(100,0.01,0.78885555,0.06,0.02)
 theme_set(theme_minimal())
 
-ggplot(df3, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et guéries(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(df3, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et retirées(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+picI(0.06,0.02,df3)
 
 ```
 
@@ -329,14 +338,14 @@ Diminuons donc le taux de transmission $\beta$ et augmentons le taux de guérion
  * Taux de transmission $\beta = 0.06$
  * Taux de guérison $\gamma=0.099$
  * Proportion de personnes saines $p=0.78885555$ au début de l'épidémie
- * Durée de la simulation : 50jours
+ * Durée de la simulation : 100jours
  * $\Delta t= 0.01$
 
 ```{r}
-df4 <- sir(50,0.01,0.78885555,0.06,0.099)
+df4 <- sir(100,0.01,0.78885555,0.06,0.099)
 theme_set(theme_minimal())
 
-ggplot(df4, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et guéries(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10)) 
+ggplot(df4, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et retirées(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10)) 
 
 ```
 
@@ -352,14 +361,17 @@ On observe clairement que les mesures prises ont joué un role dans la gestion d
 
 Dans notre études précédente, nous avons modélisé différentes courbes avec des valeurs du taux de reproduction $R_0$ maitrisées, car on donnait $\beta$ et $\gamma$.
 
-En réalité, lors d'une épidémie, on ne connaît pas le $R_0$ précisément, et c'est lui qu'on cherche à determiner. En effet, la connaissance précise du $R_0$ nous permet de savoir s'il faut prendre des mesures, et quand les prendre, comme imposer un confinement (très restricif ou pas).
+En réalité, lors d'une épidémie, on ne connaît pas le $R_0$ précisément, et c'est lui qu'on cherche à determiner. 
+
+En effet, la connaissance précise du $R_0$ nous permet de savoir s'il faut prendre des mesures, et quand les prendre, comme imposer un confinement (très restricif ou pas).
 
 
-Reprenons des valeurs inconnues de $\beta$ et $\gamma$, et regardons comment le R0 nous permet de prédire le pic.
+Reprenons des valeurs inconnues de $\beta$ et $\gamma$, et regardons comment le $R_0$ nous permet de prédire le pic.
 
 Si on suppose $R_0$ entre 2 bornes (>1 [pas d'épidémie] et 20 [épidémie incontrôlée] par exemple), on pourra être capable de déterminer la valeur du pic et le temps du pic.
 
-### Seuil de tolérance des hopitaux
+
+### 1. Seuil de tolérance des hopitaux
 
 On cherche à avoir un pic d'infectés qui ne dépasse par une certaine valeur (là où les hopitaux ne peuvent plus gérer les cas).
 
@@ -369,9 +381,9 @@ Avec des conditions initiales $s0$ et $i0$ données, on veut trouver quand et de
 Définissons arbitrairement notre seuil comme le moment ou les infectés seraient à plus de 45% de la population.
 
 ```{r}
-beta <- tirageBeta(0.8,1)
+beta <- tirageBeta(0.01,0.99)
 print(beta)
-gamma <- tirageGamma(0.02,1)
+gamma <- tirageGamma(0.01,0.99)
 print(gamma)
 
 R0 <- beta/gamma
@@ -380,31 +392,30 @@ print(R0)
 
 
 ```{r}
-s <- sir(50,0.1,0.7888999,beta,gamma)
-summary(s)
+s <- sir(100,0.1,0.7888999,beta,gamma)
+summary(s, simplify=T)
 head(s)
 
 theme_set(theme_minimal())
 
-ggplot(s, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et guéries(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(s, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_line(aes(y = resI),color = "darkred") + geom_line(aes(y = resR), color="steelblue") + labs(title = "Modèle SIR", x = "Temps", y="Population", color="L") + labs(caption = "Représentation graphique des populaions saines(en vert), infectées(en rouge) et retirées(en bleu).")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 ```
 
 
 ```{r}
-p <- picI(beta,gamma,s)
-print(p)
+picI(beta,gamma,s)
 ```
 
 
-## Replicate()
+## 2. Replicate()
 
 ```{r}
-list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.6,0.03,1,1), simplify=T))
+list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.01,0.99), simplify=T))
 print(list_res)
 
 concat <- do.call(rbind.data.frame,list_res)
-print(concat)
+head(concat)
 
 orderConcat <- concat[order(concat[,3],decreasing=F),]
 print(orderConcat)
@@ -424,6 +435,19 @@ ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = PicI), col="purple")+geo
 A partir de quelle valeur du $R_0$ les hopitaux sont-ils débordés ? 
 
 
+## 3. Conclusion
+
+Nous avons tenté de démontrer la corrélation entre la valeur aléatoire du $R_0$ et la date ou le nombre d'infectées sera à son maximun.
+
+L'objectif était d'éviter que le pic de personnes malades ne dépasse une certaine valeur arbitraire (nous avions choisi 45% de la population), car il fallait supposer que les capacités hospitalières ou de prise en charge des malades n'étaient pas extensibles. Ce genre de seuil est valable actuellement avec la pandémie que nous vivons. 
+
+En effet, il y a un nombre  $x$ de places en réanimation par exemple, et si le nombre de personnes necessitant une place était suppérieur à la capacité d'acceuil, cela aurait des conséquences dramatiques. 
+
+Il est donc nécessaire de pouvoir prévoir quand devrait arriver le pic, et determiner s'il va depasser la valeur critique seuil. Nous determinons alors le $R_0$ acceptable, et s'il s'avère que le la valeur du $R_0$ de l'épidémie est au dessus, il faut vite prendre des mesures pour le faire diminuer.
+
+Nous avions vu plus haut dans nos simulations qu'il était possible de diminuer le **taux de transmission** $\beta$ par exemple, en instaurant une distanciation sociale, ou rendre obligatoire le port des masques dans les espaces clos. Si les scientifiques et les médecins parvennaient à trouver un médicament efficace, cela pourra augmenter le **taux de guérison** $\gamma$.
+
+
 
 # IV. Complexification et réalisme du modèle SIR
 
@@ -435,23 +459,30 @@ En effet, pour se rapprocher de la réalité il faudrait prendre en compte ces p
 
 De plus, lors d'une épidémie, il est possible de mettre en place des mesures pour réduire le nombre de malades ou de morts. On peut par exemple décider de confiner la population si le taux de transmission $\beta$ du pathogène est élevé. Ou alors lancer une campagne de vaccination pour réduire le nombre de contaminations.
 
+De plus, nous sommes partis du postulats que les personnes retirées étaient soit guéries soit mortes. En réalité, ce n'est pas le cas pour toutes les maladies. Il se pose la question de l'existence d'un nouveau compartiment, ou d'un possible retour des personnes retirées vers sains, qui dans ce cas-là, redeviennent suceptibles d'attraper une fois de plus la maladie.
 
 
 ### 2. Modèle SEIR
 
-Dans ce modèle, nous prenons en compte la démographie, et donc nous aurons une évolution de $N(t)$ au cours du temps. 
+Dans ce modèle, il est possible de prendre en compte la démographie, et donc d'avoir une évolution de $N(t)$ au cours du temps. 
 
-On considèrera que les personnes qui naissent sont saines. On introduit alors le **taux de natalité $\nu$**.
+On considèrera toujours que les personnes qui naissent sont saines. On introduit alors le **taux de natalité $\nu$**.
 
-On considèrera également que les personnes qui meurent, peuvent être dans n'importe quelle sous-population à l'instant t (la mort n'est pas toujours liée au virus). C'est le **taux de mortalité $\mu$**.
+On considèrera également que les personnes qui meurent, peuvent être dans n'importe quelle sous-population à l'instant $t$ (la mort n'est pas toujours liée au virus). C'est le **taux de mortalité $\mu$**.
 
-Une nouvelle sous-population $E(t)$ est ajoutée au modèle : les **personnes exposées** c'est-à-dire **les infectées non-contagieuses** (personnes qui ont été en contact avec une personne malade, mais qui ne transmettent pas encore le pathogène). Cela nous permet de prendre en compte la **durée d’incubation** et d'introduire un nouveau paramètre $\alpha$ : le **taux d’incubation d’une maladie**
+Une nouvelle sous-population $E(t)$ est ajoutée au modèle : les **personnes exposées** c'est-à-dire **les infectées non-contagieuses** (c'est-à-dire les personnes qui ont été en contact avec une personne malade, mais qui ne transmettent pas encore le pathogène). 
+
+Cela nous permet de prendre en compte la **durée d’incubation** du pathogène dans l'organisme et d'introduire un nouveau paramètre $\alpha$ : le **taux d’incubation d’une maladie**.
+
+
 *n* représente une naissance et *m* un décès.
 
-$$\nu \ \ \ \ \ \  \  \ \ \ \beta\ \ \ \  \ \  \ \ \ \alpha \ \ \ \ \ \ \ \ \ \  \ \gamma  \ \ \ \ \ \ \  \ \   \mu \\ n \longrightarrow\ S  \longrightarrow E \longrightarrow\ I  \longrightarrow  R \longrightarrow m\\ \downarrow \mu   \ \ \ \  \ \downarrow \mu  \ \ \ \ \  \  \downarrow  \mu\ \ \ \ \ \ \ \  \ \ \\ m \ \ \ \ \ \ \ \  \ m  \ \ \ \ \ \  \  m \ \ \ \ \ \ \ \ \ \ \ \ \ \ $$
+Voici donc une nouvelle schématisation, qui se rapproche un peu plus de la réalité :
+
+$$ \nu \ \ \ \ \ \  \  \ \ \ \beta\ \ \ \  \ \  \ \ \ \alpha \ \ \ \ \ \ \ \ \ \  \ \gamma  \ \ \ \ \ \ \  \ \   \mu \\ n \longrightarrow\ S  \longrightarrow E \longrightarrow\ I  \longrightarrow  R \longrightarrow m\\ \downarrow \mu   \ \ \ \  \ \downarrow \mu  \ \ \ \ \  \  \downarrow  \mu\ \ \ \ \ \ \ \  \ \ \\ m \ \ \ \ \ \ \ \  \ m  \ \ \ \ \ \  \  m \ \ \ \ \ \ \ \ \ \ \ \ \ \ $$
 
 
-De ce fait, nos équations différentielles seront modifiées :
+De plus, nos équations différentielles du modèle SIR seront compléxifiées avec l'ajout de ces paramètres :
 
 $$\begin{equation}
     \left\{
@@ -529,26 +560,27 @@ print(graphe)
 
 ```
 
+
+Il faut en plus réaliser un **tirage du taux d'incubation** $\alpha$ :
 ```{r}
-beta <- tirageBeta(0.6,1)
+beta <- tirageBeta(0.1,0.99)
 print(beta)
-gamma <- tirageGamma(0.03,1)
+gamma <- tirageGamma(0.01,0.99)
 print(gamma)
-tirageAlpha(0.7,1)
+tirageAlpha(0.01,0.99)
 ```
 
 
 ```{r}
-picI2Seir(50, 0.01, 0.788554,0.6,0.03,0.7,1,1,1)
+picI2Seir(50, 0.01, 0.788554,0.01,0.99)
 
 ```
 
 
 
 
-
 ```{r}
-list_resSeir <- data.frame(replicate(50,picI2Seir(50, 0.01, 0.788554,0.6,0.03,0.7,1,1,1), simplify=T))
+list_resSeir <- data.frame(replicate(50,picI2Seir(50, 0.01,0.788554,0.01,0.99), simplify=T))
 print(list_resSeir)
 
 concatSeir <- do.call(rbind.data.frame,list_resSeir)
@@ -564,7 +596,7 @@ print(orderConcatSeir)
 ggplot(orderConcatSeir, aes(x = R0pic)) + geom_line(aes(y = PicI), col="purple")+geom_line(aes(y = 0.45), col="red", linetype = "dashed", size=2)+ labs(title = "Valeur du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 
- ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = datePicI), col="purple")+ labs(title = "Date du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = datePicI), col="purple")+ labs(title = "Date du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 
 ```

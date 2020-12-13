@@ -1,9 +1,6 @@
-#devtools::install_github("ZoeGerber/ModeleSIR")
-#library(ModeleSIR)
-
-#Initialiser les fractions des sous-populations saines, infectées et guéries
+#Initialiser les fractions des sous-populations saines, infectées et retirées
 #Au début de l'épidémie on a p personnes saines, et 1-p personnes malades
-#Il n'y a aucune personne guéries au début de l'épidémie
+#Il n'y a aucune personne guéries ni mortes au début de l'épidémie
 #p est donc la proportion de personnes saines
 initSir<- function(p){
   s0 <- p           #proportion
@@ -14,13 +11,13 @@ initSir<- function(p){
 
 #Initialiser les taux de transmission et de guérison
 
-tirageBeta <- function(moy,var){
-  beta <- abs(rnorm(1,moy,var))
+tirageBeta <- function(min,max){
+  beta <- runif(1,min,max)
   return(beta)
 }
 
-tirageGamma <- function(m,sd){
-  gamma <- abs(rnorm(1,m,sd))
+tirageGamma <- function(min,max){
+  gamma <- runif(1,min,max)
   return(gamma)
 }
 
@@ -66,9 +63,9 @@ picI <- function(beta,gamma, data){
 ####################
 
 
-picI2 <- function(t,dt,p,m1,m2,sd1,sd2){
-  beta <- abs(rnorm(1,m1,sd1))
-  gamma <- abs(rnorm(1,m2,sd2))
+picI2 <- function(t,dt,p,min,max){
+  beta <- runif(1,min,max)
+  gamma <- runif(1,min,max)
   R0 <- beta/gamma
   s0 <- p #proportion
   i0 <- 1 - p
