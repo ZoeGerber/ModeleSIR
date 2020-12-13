@@ -5,7 +5,7 @@
 #Au début de l'épidémie on a p personnes saines, et 1-p personnes malades
 #Il n'y a aucune personne guéries au début de l'épidémie
 #p est donc la proportion de personnes saines
-init<- function(p){
+initSir<- function(p){
   s0 <- p           #proportion
   i0 <- 1 - p
   r0 <- 0
@@ -15,12 +15,12 @@ init<- function(p){
 #Initialiser les taux de transmission et de guérison
 
 tirageBeta <- function(moy,var){
-  beta <- sort(abs(rnorm(1,moy,var)))
+  beta <- abs(rnorm(1,moy,var))
   return(beta)
 }
 
 tirageGamma <- function(m,sd){
-  gamma <- sort(abs(rnorm(1,m,sd)))
+  gamma <- abs(rnorm(1,m,sd))
   return(gamma)
 }
 
@@ -67,8 +67,8 @@ picI <- function(beta,gamma, data){
 
 
 picI2 <- function(t,dt,p,m1,m2,sd1,sd2){
-  beta <- sort(abs(rnorm(1,m1,sd1)))
-  gamma <- sort(abs(rnorm(1,m2,sd2)))
+  beta <- abs(rnorm(1,m1,sd1))
+  gamma <- abs(rnorm(1,m2,sd2))
   R0 <- beta/gamma
   s0 <- p #proportion
   i0 <- 1 - p

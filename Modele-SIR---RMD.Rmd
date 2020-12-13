@@ -219,7 +219,7 @@ Les paramètres qui vont pouvoir être modifiés et ajustés au cours des simula
 
 a. Fractions initiales affichées (à t=0) de N qui sont Sains, Infectés et Guéris :
 ```{r}
-init(0.9)
+initSir(0.9)
 ```
 
 b. Paramètres variables $\beta$ et de $\gamma$, qu'on suppose ne pas connaitre :
@@ -397,8 +397,8 @@ print(p)
 ## Replicate()
 
 ```{r}
-list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.6,0.02,1,1), simplify=T))
-print(list_res)
+list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.6,0.03,1,1), simplify=T))
+head(list_res)
 
 concat <- do.call(rbind.data.frame,list_res)
 print(concat)
@@ -508,12 +508,60 @@ $$N(t)=S(t)+E(t)+I(t)+R(t)$$
 
 
 ```{r}
-dfseir <- seir(100,0.01,0.88889999,0.8,0.05,0.75,0,0)
+dfseir <- seir(50,0.01,0.88889999,0.8,0.05,0.75,0,0)
 
 head(dfseir)
 
 theme_set(theme_minimal())
 
 ggplot(dfseir, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+                            theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+```
+
+Le pic correspondant au graphe ci dessus :
+
+```{r}
+graphe <- picISeir(0.8,0.05,0.75,dfseir)
+print(graphe)
+
+```
+
+```{r}
+beta <- tirageBeta(0.6,1)
+print(beta)
+gamma <- tirageGamma(0.03,1)
+print(gamma)
+tirageAlpha(0.7,1)
+```
+
+
+```{r}
+picI2Seir(50, 0.01, 0.788554,0.6,0.03,0.7,1,1,1)
+
+```
+
+
+
+
+
+```{r}
+list_resSeir <- data.frame(replicate(50,picI2Seir(50, 0.01, 0.788554,0.6,0.03,0.7,1,1,1), simplify=T))
+print(list_resSeir)
+
+concatSeir <- do.call(rbind.data.frame,list_resSeir)
+head(concatSeir)
+
+orderConcatSeir <- concatSeir[order(concatSeir[,3],decreasing=F),]
+print(orderConcatSeir)
+```
+
+
+```{r}
+
+ggplot(orderConcatSeir, aes(x = R0pic)) + geom_line(aes(y = PicI), col="purple")+geom_line(aes(y = 0.45), col="red", linetype = "dashed", size=2)+ labs(title = "Valeur du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+
+ ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = datePicI), col="purple")+ labs(title = "Date du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
 
 ```
