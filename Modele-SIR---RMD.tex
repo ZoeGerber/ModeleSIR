@@ -110,7 +110,7 @@
 
 \title{PROJET 4a : le modèle SIR -- RMD}
 \author{}
-\date{\vspace{-2.5em}12 décembre, 2020}
+\date{\vspace{-2.5em}13 décembre, 2020}
 
 \begin{document}
 \maketitle
@@ -485,7 +485,7 @@ simulations sont :
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{init}\NormalTok{(}\FloatTok{0.9}\NormalTok{)}
+\KeywordTok{initSir}\NormalTok{(}\FloatTok{0.9}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -512,7 +512,7 @@ Nous avons choisi de modéliser le \(R_0\) par une loi normale.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.4064345
+## [1] 2.394285
 \end{verbatim}
 
 \begin{Shaded}
@@ -523,7 +523,7 @@ Nous avons choisi de modéliser le \(R_0\) par une loi normale.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3213631
+## [1] 0.8334392
 \end{verbatim}
 
 \begin{Shaded}
@@ -534,7 +534,7 @@ Nous avons choisi de modéliser le \(R_0\) par une loi normale.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.264721
+## [1] 2.872777
 \end{verbatim}
 
 \hypertarget{courbes}{%
@@ -767,7 +767,7 @@ seraient à plus de 45\% de la population.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.9739361
+## [1] 1.401828
 \end{verbatim}
 
 \begin{Shaded}
@@ -778,7 +778,7 @@ seraient à plus de 45\% de la population.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2822019
+## [1] 0.7996738
 \end{verbatim}
 
 \begin{Shaded}
@@ -789,7 +789,7 @@ seraient à plus de 45\% de la population.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 3.451203
+## [1] 1.752999
 \end{verbatim}
 
 \begin{Shaded}
@@ -800,13 +800,13 @@ seraient à plus de 45\% de la population.
 \end{Shaded}
 
 \begin{verbatim}
-##        j              resS              resI                resR       
-##  Min.   :  1.0   Min.   :0.02607   Min.   :0.0000040   Min.   :0.0000  
-##  1st Qu.:125.8   1st Qu.:0.02608   1st Qu.:0.0001018   1st Qu.:0.9012  
-##  Median :250.5   Median :0.02633   Median :0.0026102   Median :0.9711  
-##  Mean   :250.5   Mean   :0.06896   Mean   :0.0690232   Mean   :0.8620  
-##  3rd Qu.:375.2   3rd Qu.:0.03352   3rd Qu.:0.0652740   3rd Qu.:0.9738  
-##  Max.   :500.0   Max.   :0.78890   Max.   :0.4251423   Max.   :0.9739
+##        j              resS             resI                resR       
+##  Min.   :  1.0   Min.   :0.1860   Min.   :0.000e+00   Min.   :0.0000  
+##  1st Qu.:125.8   1st Qu.:0.1860   1st Qu.:0.000e+00   1st Qu.:0.8123  
+##  Median :250.5   Median :0.1860   Median :1.150e-06   Median :0.8140  
+##  Mean   :250.5   Mean   :0.2095   Mean   :2.036e-02   Mean   :0.7701  
+##  3rd Qu.:375.2   3rd Qu.:0.1865   3rd Qu.:1.155e-03   3rd Qu.:0.8140  
+##  Max.   :500.0   Max.   :0.7889   Max.   :2.477e-01   Max.   :0.8140
 \end{verbatim}
 
 \begin{Shaded}
@@ -816,13 +816,13 @@ seraient à plus de 45\% de la population.
 \end{Shaded}
 
 \begin{verbatim}
-##   j      resS      resI        resR
-## 1 1 0.7888999 0.2111001 0.000000000
-## 2 2 0.7726803 0.2213624 0.005957285
-## 3 3 0.7560218 0.2317740 0.012204175
-## 4 4 0.7389559 0.2422992 0.018744881
-## 5 5 0.7215178 0.2528996 0.025582610
-## 6 6 0.7037462 0.2635343 0.032719486
+##   j      resS      resI       resR
+## 1 1 0.7888999 0.2111001 0.00000000
+## 2 2 0.7655543 0.2175646 0.01688112
+## 3 3 0.7422058 0.2235150 0.03427919
+## 4 4 0.7189503 0.2288966 0.05215310
+## 5 5 0.6958811 0.2336615 0.07045736
+## 6 6 0.6730873 0.2377700 0.08914266
 \end{verbatim}
 
 \begin{Shaded}
@@ -844,7 +844,7 @@ seraient à plus de 45\% de la population.
 
 \begin{verbatim}
 ##        PicI datePicI    R0pic
-## 1 0.4251423       31 3.451203
+## 1 0.2477048       11 1.752999
 \end{verbatim}
 
 \hypertarget{replicate}{%
@@ -852,44 +852,44 @@ seraient à plus de 45\% de la population.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{list_res <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{replicate}\NormalTok{(}\DecValTok{50}\NormalTok{,}\KeywordTok{picI2}\NormalTok{(}\DecValTok{10}\NormalTok{,}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.7888999}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.02}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{simplify=}\NormalTok{T))}
-\KeywordTok{print}\NormalTok{(list_res)}
+\NormalTok{list_res <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{replicate}\NormalTok{(}\DecValTok{50}\NormalTok{,}\KeywordTok{picI2}\NormalTok{(}\DecValTok{10}\NormalTok{,}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.7888999}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.03}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{simplify=}\NormalTok{T))}
+\KeywordTok{head}\NormalTok{(list_res)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                 X1         X2        X3        X4        X5        X6        X7
-## PicI     0.2111001  0.2111001 0.2111001 0.2111001 0.2111001 0.2111001 0.7401714
-## datePicI         1          1         1         1         1         1       410
-## R0pic    0.3184384 0.01313159 0.6454402  1.104741 0.5723003 0.8036907   12.6864
-##                 X8        X9      X10         X11       X12       X13       X14
-## PicI     0.5624824 0.2111001 0.398176   0.2111001 0.2111001 0.4132906 0.2111001
-## datePicI       148         1      128           1         1       446         1
-## R0pic     5.704773 0.3459131 3.188716 0.007471797 0.9457622  3.368193 0.3802367
-##                X15       X16       X17       X18       X19       X20       X21
-## PicI     0.2111001 0.2111001 0.2111001 0.2111001 0.2111001 0.6483438 0.2610086
-## datePicI         1         1         1         1         1       270       312
-## R0pic    0.7287183 0.1779616 0.3076492    1.1852 0.3826228  8.097358  1.901825
-##                X22       X23       X24       X25       X26       X27      X28
-## PicI     0.2111001 0.2111001 0.2111001 0.5441226 0.7120718 0.2111001 0.231936
-## datePicI         1         1         1       666       268         1       59
-## R0pic    0.7991896   1.10447 0.4683078  5.347691  10.91904  1.064714 1.623405
-##                 X29        X30      X31       X32       X33       X34       X35
-## PicI      0.2111001  0.2111001 0.276275 0.2111001 0.2111001 0.8565087 0.6795923
-## datePicI          1          1      204         1         1       278       179
-## R0pic    0.01327869 0.09172838  2.03518 0.4943796 0.6489913  28.53622  9.304558
-##                X36       X37       X38       X39        X40       X41       X42
-## PicI     0.2111001 0.5038011 0.8739149 0.2130829  0.2111001 0.3206633 0.6193572
-## datePicI         1       670       270        42          1       156       433
-## R0pic    0.7667734  4.618294  33.79481  1.361881 0.08870996  2.424777  7.169301
-##                X43       X44       X45       X46       X47       X48       X49
-## PicI     0.2111001 0.2111001 0.2111001 0.4290094 0.4132284 0.2111001 0.4342591
-## datePicI         1         1         1       137       276         1       494
-## R0pic    0.4236606 0.2357002  0.565692  3.545692  3.365102 0.4575855  3.620743
+##                 X1        X2        X3        X4        X5        X6        X7
+## PicI     0.2111001 0.2176183 0.2219103 0.2171925 0.2111001 0.2111001 0.2111001
+## datePicI         1        47        84        34         1         1         1
+## R0pic    0.3967856  1.447829  1.509082  1.440336 0.1107277 0.3723824 0.4845694
+##                  X8        X9       X10       X11       X12       X13       X14
+## PicI      0.2111001 0.2111001 0.9724033 0.2111001 0.5510309 0.2111001 0.2111197
+## datePicI          1         1       451         1       149         1         3
+## R0pic    0.06419094 0.2253546  222.2816 0.2525361  5.464785 0.3402998  1.274556
+##                X15        X16      X17       X18       X19       X20       X21
+## PicI     0.2111001  0.2111001 0.246081 0.2154392 0.4217429 0.2345168 0.2111001
+## datePicI         1          1      202        88       164       163         1
+## R0pic    0.2864535 0.02192289 1.765503  1.412311  3.460612  1.652469  1.038934
+##                X22       X23       X24       X25       X26       X27       X28
+## PicI     0.2111001 0.4890487 0.3069134 0.2111001 0.2111001 0.2131214 0.2111001
+## datePicI         1       228       158         1         1        38         1
+## R0pic    0.2374261  4.374344  2.302096 0.6866761 0.4795256   1.36273 0.6884917
+##                X29       X30       X31       X32       X33      X34       X35
+## PicI     0.3855233 0.4470675 0.2111001 0.4672243 0.2111001 0.620979 0.2111001
+## datePicI       151       221         1       178         1      179         1
+## R0pic     3.054221  3.778939 0.1218978  4.049508 0.4973861 7.195331 0.5058531
+##                X36       X37       X38       X39       X40       X41       X42
+## PicI     0.2111001 0.2111001 0.2111001 0.2111001 0.2111001 0.2140224 0.2111001
+## datePicI         1         1         1         1         1        45         1
+## R0pic    0.8107764 0.7429547 0.5797356 0.6032204 0.1344634  1.383702 0.7398079
+##                X43      X44       X45       X46       X47       X48      X49
+## PicI     0.2988143 0.926605 0.7114007 0.2111001 0.2189364 0.3004376  0.40323
+## datePicI       114     1000       656         1        80       180      247
+## R0pic     2.229254 207.9701  10.91039 0.7687917  1.468453  2.245573 3.250591
 ##                X50
-## PicI     0.2131979
-## datePicI        13
-## R0pic     1.361862
+## PicI     0.5686932
+## datePicI       319
+## R0pic     5.858611
 \end{verbatim}
 
 \begin{Shaded}
@@ -901,56 +901,56 @@ seraient à plus de 45\% de la population.
 
 \begin{verbatim}
 ##          PicI datePicI        R0pic
-## X1  0.2111001        1  0.318438404
-## X2  0.2111001        1  0.013131590
-## X3  0.2111001        1  0.645440186
-## X4  0.2111001        1  1.104740567
-## X5  0.2111001        1  0.572300325
-## X6  0.2111001        1  0.803690693
-## X7  0.7401714      410 12.686404800
-## X8  0.5624824      148  5.704772602
-## X9  0.2111001        1  0.345913092
-## X10 0.3981760      128  3.188716348
-## X11 0.2111001        1  0.007471797
-## X12 0.2111001        1  0.945762166
-## X13 0.4132906      446  3.368192606
-## X14 0.2111001        1  0.380236655
-## X15 0.2111001        1  0.728718339
-## X16 0.2111001        1  0.177961648
-## X17 0.2111001        1  0.307649163
-## X18 0.2111001        1  1.185199934
-## X19 0.2111001        1  0.382622780
-## X20 0.6483438      270  8.097357769
-## X21 0.2610086      312  1.901825255
-## X22 0.2111001        1  0.799189639
-## X23 0.2111001        1  1.104469789
-## X24 0.2111001        1  0.468307775
-## X25 0.5441226      666  5.347690729
-## X26 0.7120718      268 10.919040429
-## X27 0.2111001        1  1.064713885
-## X28 0.2319360       59  1.623404799
-## X29 0.2111001        1  0.013278690
-## X30 0.2111001        1  0.091728382
-## X31 0.2762750      204  2.035180418
-## X32 0.2111001        1  0.494379586
-## X33 0.2111001        1  0.648991287
-## X34 0.8565087      278 28.536221941
-## X35 0.6795923      179  9.304557524
-## X36 0.2111001        1  0.766773401
-## X37 0.5038011      670  4.618294077
-## X38 0.8739149      270 33.794805768
-## X39 0.2130829       42  1.361881176
-## X40 0.2111001        1  0.088709958
-## X41 0.3206633      156  2.424777455
-## X42 0.6193572      433  7.169300544
-## X43 0.2111001        1  0.423660586
-## X44 0.2111001        1  0.235700150
-## X45 0.2111001        1  0.565691950
-## X46 0.4290094      137  3.545692234
-## X47 0.4132284      276  3.365101536
-## X48 0.2111001        1  0.457585499
-## X49 0.4342591      494  3.620742513
-## X50 0.2131979       13  1.361861890
+## X1  0.2111001        1   0.39678562
+## X2  0.2176183       47   1.44782856
+## X3  0.2219103       84   1.50908225
+## X4  0.2171925       34   1.44033634
+## X5  0.2111001        1   0.11072774
+## X6  0.2111001        1   0.37238242
+## X7  0.2111001        1   0.48456938
+## X8  0.2111001        1   0.06419094
+## X9  0.2111001        1   0.22535461
+## X10 0.9724033      451 222.28157006
+## X11 0.2111001        1   0.25253611
+## X12 0.5510309      149   5.46478538
+## X13 0.2111001        1   0.34029978
+## X14 0.2111197        3   1.27455570
+## X15 0.2111001        1   0.28645348
+## X16 0.2111001        1   0.02192289
+## X17 0.2460810      202   1.76550253
+## X18 0.2154392       88   1.41231058
+## X19 0.4217429      164   3.46061167
+## X20 0.2345168      163   1.65246882
+## X21 0.2111001        1   1.03893405
+## X22 0.2111001        1   0.23742609
+## X23 0.4890487      228   4.37434407
+## X24 0.3069134      158   2.30209635
+## X25 0.2111001        1   0.68667613
+## X26 0.2111001        1   0.47952564
+## X27 0.2131214       38   1.36273016
+## X28 0.2111001        1   0.68849166
+## X29 0.3855233      151   3.05422139
+## X30 0.4470675      221   3.77893902
+## X31 0.2111001        1   0.12189784
+## X32 0.4672243      178   4.04950783
+## X33 0.2111001        1   0.49738608
+## X34 0.6209790      179   7.19533125
+## X35 0.2111001        1   0.50585309
+## X36 0.2111001        1   0.81077642
+## X37 0.2111001        1   0.74295467
+## X38 0.2111001        1   0.57973560
+## X39 0.2111001        1   0.60322036
+## X40 0.2111001        1   0.13446340
+## X41 0.2140224       45   1.38370213
+## X42 0.2111001        1   0.73980786
+## X43 0.2988143      114   2.22925363
+## X44 0.9266050     1000 207.97014733
+## X45 0.7114007      656  10.91038938
+## X46 0.2111001        1   0.76879174
+## X47 0.2189364       80   1.46845321
+## X48 0.3004376      180   2.24557319
+## X49 0.4032300      247   3.25059097
+## X50 0.5686932      319   5.85861144
 \end{verbatim}
 
 \begin{Shaded}
@@ -962,56 +962,56 @@ seraient à plus de 45\% de la population.
 
 \begin{verbatim}
 ##          PicI datePicI        R0pic
-## X11 0.2111001        1  0.007471797
-## X2  0.2111001        1  0.013131590
-## X29 0.2111001        1  0.013278690
-## X40 0.2111001        1  0.088709958
-## X30 0.2111001        1  0.091728382
-## X16 0.2111001        1  0.177961648
-## X44 0.2111001        1  0.235700150
-## X17 0.2111001        1  0.307649163
-## X1  0.2111001        1  0.318438404
-## X9  0.2111001        1  0.345913092
-## X14 0.2111001        1  0.380236655
-## X19 0.2111001        1  0.382622780
-## X43 0.2111001        1  0.423660586
-## X48 0.2111001        1  0.457585499
-## X24 0.2111001        1  0.468307775
-## X32 0.2111001        1  0.494379586
-## X45 0.2111001        1  0.565691950
-## X5  0.2111001        1  0.572300325
-## X3  0.2111001        1  0.645440186
-## X33 0.2111001        1  0.648991287
-## X15 0.2111001        1  0.728718339
-## X36 0.2111001        1  0.766773401
-## X22 0.2111001        1  0.799189639
-## X6  0.2111001        1  0.803690693
-## X12 0.2111001        1  0.945762166
-## X27 0.2111001        1  1.064713885
-## X23 0.2111001        1  1.104469789
-## X4  0.2111001        1  1.104740567
-## X18 0.2111001        1  1.185199934
-## X50 0.2131979       13  1.361861890
-## X39 0.2130829       42  1.361881176
-## X28 0.2319360       59  1.623404799
-## X21 0.2610086      312  1.901825255
-## X31 0.2762750      204  2.035180418
-## X41 0.3206633      156  2.424777455
-## X10 0.3981760      128  3.188716348
-## X47 0.4132284      276  3.365101536
-## X13 0.4132906      446  3.368192606
-## X46 0.4290094      137  3.545692234
-## X49 0.4342591      494  3.620742513
-## X37 0.5038011      670  4.618294077
-## X25 0.5441226      666  5.347690729
-## X8  0.5624824      148  5.704772602
-## X42 0.6193572      433  7.169300544
-## X20 0.6483438      270  8.097357769
-## X35 0.6795923      179  9.304557524
-## X26 0.7120718      268 10.919040429
-## X7  0.7401714      410 12.686404800
-## X34 0.8565087      278 28.536221941
-## X38 0.8739149      270 33.794805768
+## X16 0.2111001        1   0.02192289
+## X8  0.2111001        1   0.06419094
+## X5  0.2111001        1   0.11072774
+## X31 0.2111001        1   0.12189784
+## X40 0.2111001        1   0.13446340
+## X9  0.2111001        1   0.22535461
+## X22 0.2111001        1   0.23742609
+## X11 0.2111001        1   0.25253611
+## X15 0.2111001        1   0.28645348
+## X13 0.2111001        1   0.34029978
+## X6  0.2111001        1   0.37238242
+## X1  0.2111001        1   0.39678562
+## X26 0.2111001        1   0.47952564
+## X7  0.2111001        1   0.48456938
+## X33 0.2111001        1   0.49738608
+## X35 0.2111001        1   0.50585309
+## X38 0.2111001        1   0.57973560
+## X39 0.2111001        1   0.60322036
+## X25 0.2111001        1   0.68667613
+## X28 0.2111001        1   0.68849166
+## X42 0.2111001        1   0.73980786
+## X37 0.2111001        1   0.74295467
+## X46 0.2111001        1   0.76879174
+## X36 0.2111001        1   0.81077642
+## X21 0.2111001        1   1.03893405
+## X14 0.2111197        3   1.27455570
+## X27 0.2131214       38   1.36273016
+## X41 0.2140224       45   1.38370213
+## X18 0.2154392       88   1.41231058
+## X4  0.2171925       34   1.44033634
+## X2  0.2176183       47   1.44782856
+## X47 0.2189364       80   1.46845321
+## X3  0.2219103       84   1.50908225
+## X20 0.2345168      163   1.65246882
+## X17 0.2460810      202   1.76550253
+## X43 0.2988143      114   2.22925363
+## X48 0.3004376      180   2.24557319
+## X24 0.3069134      158   2.30209635
+## X29 0.3855233      151   3.05422139
+## X49 0.4032300      247   3.25059097
+## X19 0.4217429      164   3.46061167
+## X30 0.4470675      221   3.77893902
+## X32 0.4672243      178   4.04950783
+## X23 0.4890487      228   4.37434407
+## X12 0.5510309      149   5.46478538
+## X50 0.5686932      319   5.85861144
+## X34 0.6209790      179   7.19533125
+## X45 0.7114007      656  10.91038938
+## X44 0.9266050     1000 207.97014733
+## X10 0.9724033      451 222.28157006
 \end{verbatim}
 
 \begin{Shaded}
@@ -1024,9 +1024,11 @@ seraient à plus de 45\% de la population.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{g2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(orderConcat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ R0pic)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ datePicI), }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Date du pic en focntion du R0"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"R0"}\NormalTok{, }\DataTypeTok{y=}\StringTok{"Pic des infectés"}\NormalTok{, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Représentation graphique des valeurs des pics à différents R0"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.caption =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{face =} \StringTok{"italic"}\NormalTok{, }\DataTypeTok{size =}\DecValTok{10}\NormalTok{))}
+ \KeywordTok{ggplot}\NormalTok{(orderConcat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ R0pic)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ datePicI), }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Date du pic en focntion du R0"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"R0"}\NormalTok{, }\DataTypeTok{y=}\StringTok{"Pic des infectés"}\NormalTok{, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Représentation graphique des valeurs des pics à différents R0"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.caption =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{face =} \StringTok{"italic"}\NormalTok{, }\DataTypeTok{size =}\DecValTok{10}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{Modele-SIR---RMD_files/figure-latex/unnamed-chunk-13-2.pdf}
 
 A partir de quelle valeur du \(R_0\) les hopitaux sont-ils débordés ?
 
@@ -1138,7 +1140,7 @@ On sait qu'a un instant t, la taille de la population sera :
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dfseir <-}\StringTok{ }\KeywordTok{seir}\NormalTok{(}\DecValTok{100}\NormalTok{,}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.88889999}\NormalTok{,}\FloatTok{0.8}\NormalTok{,}\FloatTok{0.05}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{dfseir <-}\StringTok{ }\KeywordTok{seir}\NormalTok{(}\DecValTok{50}\NormalTok{,}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.88889999}\NormalTok{,}\FloatTok{0.8}\NormalTok{,}\FloatTok{0.05}\NormalTok{,}\FloatTok{0.75}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
 
 \KeywordTok{head}\NormalTok{(dfseir)}
 \end{Highlighting}
@@ -1163,5 +1165,204 @@ On sait qu'a un instant t, la taille de la population sera :
 \end{Shaded}
 
 \includegraphics{Modele-SIR---RMD_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+Le pic correspondant au graphe ci dessus :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graphe <-}\StringTok{ }\KeywordTok{picISeir}\NormalTok{(}\FloatTok{0.8}\NormalTok{,}\FloatTok{0.05}\NormalTok{,}\FloatTok{0.75}\NormalTok{,dfseir)}
+\KeywordTok{print}\NormalTok{(graphe)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $PicI
+## [1] 0.7079925
+## 
+## $datePicI
+## [1] 1071
+## 
+## $R0pic
+## [1] 16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beta <-}\StringTok{ }\KeywordTok{tirageBeta}\NormalTok{(}\FloatTok{0.6}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(beta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2789233
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gamma <-}\StringTok{ }\KeywordTok{tirageGamma}\NormalTok{(}\FloatTok{0.03}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(gamma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.07781
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tirageAlpha}\NormalTok{(}\FloatTok{0.7}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.93383
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{picI2Seir}\NormalTok{(}\DecValTok{50}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.788554}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.03}\NormalTok{,}\FloatTok{0.7}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        PicI datePicI    R0pic
+## 1 0.1534403      518 1.698918
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{list_resSeir <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{replicate}\NormalTok{(}\DecValTok{50}\NormalTok{,}\KeywordTok{picI2Seir}\NormalTok{(}\DecValTok{50}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.788554}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.03}\NormalTok{,}\FloatTok{0.7}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{simplify=}\NormalTok{T))}
+\KeywordTok{print}\NormalTok{(list_resSeir)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 X1        X2        X3        X4        X5         X6        X7
+## PicI     0.2424035 0.7281712 0.2004436  0.105723 0.1104591  0.1088788  0.105723
+## datePicI       576       587       268         1        36         43         1
+## R0pic     2.469489  21.83438  3.004974 0.3732558 0.7438076 0.08973299 0.2412744
+##                 X8        X9       X10       X11       X12       X13       X14
+## PicI      0.105723 0.4221262 0.1735678 0.1630644 0.1626849 0.9552565 0.1095486
+## datePicI         1       764       190       417       638       783        46
+## R0pic    0.6188293  6.046564  2.210628  1.388489   4.49768  143.5614 0.7010689
+##                X15       X16       X17       X18       X19       X20       X21
+## PicI     0.1557685  0.105723 0.1119082  0.105723  0.105723 0.3402854  0.105723
+## datePicI        55         1        39         1         1       347         1
+## R0pic     0.368245 0.4049891 0.8367123 0.1262717 0.4445367  5.034107 0.3502952
+##                X22       X23       X24       X25       X26       X27       X28
+## PicI     0.1250664 0.3790083 0.4120439 0.1212751 0.7316056 0.6014567 0.8562673
+## datePicI        48       655       385        39       518      1734       692
+## R0pic    0.8667736  6.704775  4.792369 0.6807492  17.10023  30.15448  41.00531
+##                 X29       X30       X31       X32        X33      X34       X35
+## PicI       0.105723 0.3931397  0.141157 0.2577442   0.105723 0.130798  0.105723
+## datePicI          1      5000        79       406          1      102         1
+## R0pic    0.05837481  17.20254 0.7399409  2.801057 0.06957363  1.08498 0.9075728
+##                X36        X37       X38       X39       X40       X41       X42
+## PicI     0.4333342   0.105723 0.9251739 0.2878508 0.1269075  0.105723 0.6056611
+## datePicI      1416          1       707      2449        57         1      2175
+## R0pic     3.841886 0.02538486  106.6079  18.09254 0.7724439 0.8322601  59.82119
+##                X43       X44       X45       X46       X47       X48       X49
+## PicI     0.1066937 0.5991545  0.105723 0.4644681  0.105723  0.105723 0.1253267
+## datePicI        11       718         1      1247         1         1       134
+## R0pic    0.1878505   11.9922 0.6712022  4.507268 0.1739487 0.2664029   1.39247
+##                X50
+## PicI     0.1359586
+## datePicI        60
+## R0pic     1.046676
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{concatSeir <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(rbind.data.frame,list_resSeir)}
+\KeywordTok{head}\NormalTok{(concatSeir)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         PicI datePicI       R0pic
+## X1 0.2424035      576  2.46948910
+## X2 0.7281712      587 21.83438066
+## X3 0.2004436      268  3.00497444
+## X4 0.1057230        1  0.37325576
+## X5 0.1104591       36  0.74380757
+## X6 0.1088788       43  0.08973299
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{orderConcatSeir <-}\StringTok{ }\NormalTok{concatSeir[}\KeywordTok{order}\NormalTok{(concatSeir[,}\DecValTok{3}\NormalTok{],}\DataTypeTok{decreasing=}\NormalTok{F),]}
+\KeywordTok{print}\NormalTok{(orderConcatSeir)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          PicI datePicI        R0pic
+## X37 0.1057230        1   0.02538486
+## X29 0.1057230        1   0.05837481
+## X33 0.1057230        1   0.06957363
+## X6  0.1088788       43   0.08973299
+## X18 0.1057230        1   0.12627169
+## X47 0.1057230        1   0.17394871
+## X43 0.1066937       11   0.18785049
+## X7  0.1057230        1   0.24127435
+## X48 0.1057230        1   0.26640291
+## X21 0.1057230        1   0.35029522
+## X15 0.1557685       55   0.36824498
+## X4  0.1057230        1   0.37325576
+## X16 0.1057230        1   0.40498906
+## X19 0.1057230        1   0.44453668
+## X8  0.1057230        1   0.61882928
+## X45 0.1057230        1   0.67120222
+## X25 0.1212751       39   0.68074922
+## X14 0.1095486       46   0.70106891
+## X31 0.1411570       79   0.73994091
+## X5  0.1104591       36   0.74380757
+## X40 0.1269075       57   0.77244390
+## X41 0.1057230        1   0.83226005
+## X17 0.1119082       39   0.83671231
+## X22 0.1250664       48   0.86677356
+## X35 0.1057230        1   0.90757282
+## X50 0.1359586       60   1.04667588
+## X34 0.1307980      102   1.08498041
+## X11 0.1630644      417   1.38848906
+## X49 0.1253267      134   1.39247002
+## X10 0.1735678      190   2.21062769
+## X1  0.2424035      576   2.46948910
+## X32 0.2577442      406   2.80105739
+## X3  0.2004436      268   3.00497444
+## X36 0.4333342     1416   3.84188593
+## X12 0.1626849      638   4.49767998
+## X46 0.4644681     1247   4.50726815
+## X24 0.4120439      385   4.79236895
+## X20 0.3402854      347   5.03410712
+## X9  0.4221262      764   6.04656381
+## X23 0.3790083      655   6.70477493
+## X44 0.5991545      718  11.99219800
+## X26 0.7316056      518  17.10022545
+## X30 0.3931397     5000  17.20253919
+## X39 0.2878508     2449  18.09254341
+## X2  0.7281712      587  21.83438066
+## X27 0.6014567     1734  30.15448450
+## X28 0.8562673      692  41.00530859
+## X42 0.6056611     2175  59.82119134
+## X38 0.9251739      707 106.60791250
+## X13 0.9552565      783 143.56140254
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(orderConcatSeir, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ R0pic)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ PicI), }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \FloatTok{0.45}\NormalTok{), }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\DataTypeTok{size=}\DecValTok{2}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Valeur du pic en focntion du R0"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"R0"}\NormalTok{, }\DataTypeTok{y=}\StringTok{"Pic des infectés"}\NormalTok{, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Représentation graphique des valeurs des pics à différents R0"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.caption =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{face =} \StringTok{"italic"}\NormalTok{, }\DataTypeTok{size =}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Modele-SIR---RMD_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{ggplot}\NormalTok{(orderConcat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ R0pic)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ datePicI), }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Date du pic en focntion du R0"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"R0"}\NormalTok{, }\DataTypeTok{y=}\StringTok{"Pic des infectés"}\NormalTok{, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{caption =} \StringTok{"Représentation graphique des valeurs des pics à différents R0"}\NormalTok{)}\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.caption =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{face =} \StringTok{"italic"}\NormalTok{, }\DataTypeTok{size =}\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Modele-SIR---RMD_files/figure-latex/unnamed-chunk-19-2.pdf}
 
 \end{document}

@@ -31,7 +31,7 @@ Pour ce faire nous allons proposer:
  
  * le partage du code et de la présentation avec github
  
- Le projet que nous allons traiter est le **Projet 4 : le modèle SIR**.
+Le projet que nous allons traiter est le **Projet 4 : le modèle SIR**.
  
 
 # II.  Résolution du projet
@@ -341,9 +341,12 @@ ggplot(df4, aes(x=j)) + geom_line(aes(y = resS), color = "darkgreen") + geom_lin
 ```
 
 
+
+```{r}
+picI(0.06,0.099,df4)
+```
+
 On observe clairement que les mesures prises ont joué un role dans la gestion de cette épidémie ! Certaines personnes n'ont même jamais entendu parler de ce virus il semblerait ! Les personnes infectées contaminaient moins de 1 personnes (0.6).
-
-
 
 # III. Réalisation d’une étude par simulation d’une quantité caractéristique
 
@@ -398,7 +401,7 @@ print(p)
 
 ```{r}
 list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.6,0.03,1,1), simplify=T))
-head(list_res)
+print(list_res)
 
 concat <- do.call(rbind.data.frame,list_res)
 print(concat)
@@ -413,7 +416,7 @@ print(orderConcat)
 ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = PicI), col="purple")+geom_line(aes(y = 0.45), col="red", linetype = "dashed", size=2)+ labs(title = "Valeur du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 
- ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = datePicI), col="purple")+ labs(title = "Date du pic en focntion du R0", x = "R0", y="Pic des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = datePicI), col="purple")+ labs(title = "Date du pic en focntion du R0", x = "R0", y="Dates des pics des infectés", color="red") + labs(caption = "Représentation graphique des valeurs des pics à différents R0")+ theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 
 ```

@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.12.5)  12 DEC 2020 21:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.12.12)  13 DEC 2020 11:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Modele-SIR---RMD.tex
 (./Modele-SIR---RMD.tex
 LaTeX2e <2020-10-01> patch level 2
-L3 programming layer <2020-12-03> xparse <2020-03-03> (c:/Users/zoege/AppData/R
+L3 programming layer <2020-12-07> xparse <2020-03-03> (c:/Users/zoege/AppData/R
 oaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -157,7 +157,7 @@ Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
 (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e.sty
-Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+Package: microtype 2020/12/07 v2.8 Micro-typographical refinements (RS)
 
 (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.st
 y
@@ -166,24 +166,23 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 )
 \MT@toks=\toks24
 \MT@count=\count197
-LaTeX Info: Redefining \textls on input line 790.
+LaTeX Info: Redefining \textls on input line 788.
 \MT@outer@kern=\dimen148
-LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+LaTeX Info: Redefining \textmicrotypecontext on input line 1358.
 \MT@listname@count=\count198
 
 (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e-pdftex.def
-File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
-
-LaTeX Info: Redefining \lsstyle on input line 914.
-LaTeX Info: Redefining \lslig on input line 914.
+File: microtype-pdftex.def 2020/12/07 v2.8 Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 915.
+LaTeX Info: Redefining \lslig on input line 915.
 \MT@outer@space=\skip52
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 
 (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e.cfg
-File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+File: microtype.cfg 2020/12/07 v2.8 microtype main configuration file (RS)
 )) (c:/Users/zoege/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.s
 ty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -506,7 +505,7 @@ Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `basictext'.
+Package microtype Info: Using default expansion set `alltext-nott'.
 LaTeX Info: Redefining \showhyphens on input line 115.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
@@ -657,11 +656,11 @@ Type  H <return>  for immediate help.
 l.193 \[\begin{equation}
                          
 Here is how much of TeX's memory you used:
- 12922 strings out of 481311
- 193467 string characters out of 5915271
- 518839 words of memory out of 5000000
- 29524 multiletter control sequences out of 15000+600000
- 452332 words of font info for 88 fonts, out of 8000000 for 9000
+ 12969 strings out of 481311
+ 194058 string characters out of 5915270
+ 518973 words of memory out of 5000000
+ 29535 multiletter control sequences out of 15000+600000
+ 453854 words of font info for 106 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  66i,5n,72p,335b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
 
