@@ -63,7 +63,7 @@ picI <- function(beta,gamma, data){
 ####################
 
 
-picI2 <- function(t,dt,p,min,max){
+picIsimu <- function(t,dt,p,min,max){
   beta <- runif(1,min,max)
   gamma <- runif(1,min,max)
   R0 <- beta/gamma

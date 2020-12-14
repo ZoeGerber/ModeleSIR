@@ -70,9 +70,9 @@ picISeir <- function(beta,gamma, alpha, data){
 ####################
 
 
-picI2Seir <- function(t,dt,p,min,max){
-  mu <- 0
-  nu <- 0
+picIsimuSeir <- function(t,dt,p,min,max){
+  mu <- 0.001
+  nu <- 0.009
   beta <- runif(1,min,max)
   gamma <- runif(1,min,max)
   alpha <- runif(1,min,max)

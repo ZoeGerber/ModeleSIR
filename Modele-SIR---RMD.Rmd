@@ -5,6 +5,9 @@ author2: TJIANI Lobna
 author3: LEMERCIER Camille
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  word_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
     df_print: paged
     toc: yes
@@ -12,9 +15,6 @@ output:
     theme: readable
     highlight: espresso
   pdf_document: default
-  word_document:
-    toc: yes
-    toc_depth: '4'
 ---
 
 # I. Consigne et objectifs
@@ -410,8 +410,11 @@ picI(beta,gamma,s)
 
 ## 2. Replicate()
 
+Le replicate(n,fun) permet de réaliser la simulation de nombreuses fois.
+La fonction picIsimu() prend en paramètre $t$, $\Delta t$, $p$ et les bornes min et max des parmètres $\beta$ et $\gamma$.
+
 ```{r}
-list_res <- data.frame(replicate(50,picI2(10,0.01,0.7888999,0.01,0.99), simplify=T))
+list_res <- data.frame(replicate(50,picIsimu(10,0.01,0.7888999,0.01,0.99), simplify=T))
 print(list_res)
 
 concat <- do.call(rbind.data.frame,list_res)
@@ -434,6 +437,8 @@ ggplot(orderConcat, aes(x = R0pic)) + geom_line(aes(y = PicI), col="purple")+geo
 ```
 
 A partir de quelle valeur du $R_0$ les hopitaux sont-ils débordés ? 
+
+On peut observer qu'après de nombreuses répétitions de la fonction, à partir de la valeur de $R0 \approx 3$, le pic atteint la valeur seuil critique.
 
 
 ## 3. Conclusion
@@ -543,13 +548,13 @@ $$N(t)=S(t)+E(t)+I(t)+R(t)$$
 
 
 ```{r}
-dfseir <- seir(50,0.01,0.88889999,0.8,0.05,0.75,0,0)
+dfseir <- seir(50,0.01,0.8899,0.8,0.05,0.75,0.01,0.009)
 
 head(dfseir)
 
 theme_set(theme_minimal())
 
-ggplot(dfseir, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+                            theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(dfseir, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+geom_line(aes(y = resN), color = "pink",size =3)+ labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation 4 compartiments: Sains (vert), Infectés(rouge), Retirés(bleu) et Exposés(jaune).")+                            theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 
 ```
 
@@ -562,8 +567,10 @@ print(graphe)
 
 ```
 
+Une question se pose : comment calculer tous ces paramètres $\alpha, \beta, \gamma, \mu$ et $\nu$. Ce travail est effectué en collaboration entre les équipes médicales, les épidémiologistes et virologistes, et les mathématiciens. Les taux de natalité et de mortalité peuvent être obtenus grâce au recensement de population.
 
-Il faut en plus réaliser un **tirage du taux d'incubation** $\alpha$ :
+
+Il faut, pour cette étude, réaliser en plus un **tirage du taux d'incubation** $\alpha$ :
 ```{r}
 beta <- tirageBeta(0.1,0.99)
 print(beta)
@@ -574,15 +581,17 @@ print(alpha)
 
 
 
-dfseirtest <- seir(50,0.01,0.78889,beta,gamma,alpha,0,0)
+dfseirtest <- seir(50,0.01,0.78855,beta,gamma,alpha,0.008,0.005)
 
 
-ggplot(dfseirtest, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+ggplot(dfseirtest, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+ geom_line(aes(y = resN), color = "pink",size =3)+                               labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
+
+picISeir(beta,gamma,alpha,dfseirtest)
 ```
 
 
 ```{r}
-picI2Seir(50, 0.01, 0.788554,0.01,0.99)
+picIsimuSeir(50, 0.01, 0.788554,0.01,0.99)
 
 ```
 
@@ -590,7 +599,7 @@ picI2Seir(50, 0.01, 0.788554,0.01,0.99)
 
 
 ```{r}
-list_resSeir <- data.frame(replicate(50,picI2Seir(50, 0.01,0.788554,0.01,0.99), simplify=T))
+list_resSeir <- data.frame(replicate(20,picIsimuSeir(50, 0.01,0.688554,0.01,0.99), simplify=T))
 print(list_resSeir)
 
 concatSeir <- do.call(rbind.data.frame,list_resSeir)
