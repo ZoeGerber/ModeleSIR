@@ -77,7 +77,7 @@ $$\begin{equation}
 De plus,on note : $$S'(t) + I'(t) + R'(t) = 0 $$
 
 
-Ces 3 équations nous permettent d'obtenir des informations qualitatives interressantes sur la façon dont l'épidémie se propage.
+Ces 3 équations nous permettent d'obtenir des informations qualitatives intéressantes sur la façon dont l'épidémie se propage.
 
 L'objectif du projet est d'estimer le temps du pic des infectés par des 
 simulations avec R.
@@ -104,14 +104,14 @@ $$\begin{equation}
     \right.
 \end{equation}$$
 
-Nous allons définir le **taux de reproduction $R_0$** comme le nombre moyen de cas secondaires produits par un individu infectieux au cours de sa période d’infection. La valeur que prend $R_0$ determine donc le nombre de personnes que va infecter une personne déja malade.
+Nous allons définir le **taux de reproduction $R_0$** comme le nombre moyen de cas secondaires produit par un individu infectieux au cours de sa période contagieuse. La valeur que prend $R_0$ determine donc le nombre de personnes que va infecter une personne déja malade.
 
 Reprenons l'équation 2 :
 
 $$ I'(t) = \beta S(t)  I(t) - \gamma  I(t) \\= \gamma I (t)(\frac{\beta I(t) S(t)}{\gamma I(t)} -1) \\= \gamma I(t) (\frac{\beta  S(t)}{\gamma } -1) \\ =\gamma I(t) (R_0 S(t) -1)$$
 On identifie $R_0 = \frac{\beta}{\gamma}$ comme le *coefficient de contact*. 
 
-C'est ce coefficient là que les gouvernement tentent de maitriser lors de la propagation d'une épidémie. Notamment avec les mesures de confinement actuelles pour limiter le contact entre les personnes saines et malades, et ainsi, réduire les contaminations.
+C'est ce coefficient là que les gouvernements tentent de maitriser lors de la propagation d'une épidémie. Notamment avec les mesures de confinement actuelles pour limiter le contact entre les personnes saines et malades, et ainsi, réduire les contaminations.
 
 Nous allons pouvoir evaluer le comportement de I'(t) grâce à ce coefficient $R_0$. En effet, nous savons que $\gamma I$ est forcément positif, donc c'est bien la valeur de $R_0 S(t) - 1$ qui determine le signe de $\gamma I'(t)$.
 
@@ -119,7 +119,7 @@ Nous allons pouvoir evaluer le comportement de I'(t) grâce à ce coefficient $R
  * Si $R_0 > 1/S_0 = 1/p$ alors $I'(0) > 0$, ce qui veut dire que $I(t)$ *croit*, et atteint une valeur maximale : c'est le **pic de l'épidemie**.
  
 
-On constate donc que pour $R_0$ fixé, plus$p$ est grand (plus il y a déjà de malades), plus il est peu probable de voir un pic, l'épidémie sera totalement sous contôle.
+On constate donc que pour $R_0$ fixé, plus $p$ est grand (plus il y a déjà de malades), moins il est probable de voir un pic, l'épidémie sera totalement sous contôle.
 En effet, si un malade peut contaminer plus d'une personne ($R_0 >1$) la maladie va flamber.
 
 
@@ -134,7 +134,7 @@ Installation du package crée pour ce projet :
 library(ModeleSIR)
 ```
 
-Dans ce pakage ce trouve toutes les fonctions nécessaires pour réaliser ces simulations du modèle SIR et prédire le pic des infectés.
+Dans ce package se trouvent toutes les fonctions nécessaires pour réaliser ces simulations du modèle SIR et prédire le pic des infectés.
 
 
 Nous nous servirons également du package ggplot2 pour tracer nos courbes :
@@ -190,7 +190,7 @@ Nous pouvons donc calculer les valeurs de S,I et R pour chaque valeurs de t donn
 
 Si nous réalisions les calcul à la main nous pourrions donner le terme suivant grâce au terme précédent, comme suit :
 
-fixons pour l'exemple $\beta = 0.5$, $\gamma = 0.03$ et $\Delta t = 0.01$.
+Fixons pour l'exemple $\beta = 0.5$, $\gamma = 0.03$ et $\Delta t = 0.01$.
 
 
 | t(j) |   S(t)      |   I(t)     |      R(t)  |       S'(t)      |      I'(t)       |     R'(t)   |
@@ -200,13 +200,13 @@ fixons pour l'exemple $\beta = 0.5$, $\gamma = 0.03$ et $\Delta t = 0.01$.
 |  2   |             |           |             |                  |                  |             |
 |  3   |             |           |             |                  |                  |             |
 
-Ce qui va nous interresser, c'est de pouvoir réaliser ces calcul avec R.
+Ce qui va nous interresser, c'est de pouvoir réaliser ces calculs avec R.
 
 #### 2.4. Initialisation
 
 Au début de l'épidémie (t=0) on a $p$ personnes saines, et $1-p$ personnes infectées.
 
-Il n'y a aucune personne retirées au début de l'épidémie.
+Il n'y a aucune personne retirée au début de l'épidémie.
 
 *$p$* est donc la proportion de personnes saines au commencement de l'épidémie. (Cf fonction dans le package)
 
@@ -219,13 +219,13 @@ Les paramètres qui vont pouvoir être modifiés et ajustés au cours des simula
  * La proportion de personnes $p$ saines au début de l'épidémie
  * La durée de la simulation (vecteur donné en jours)
 
-a. Fractions initiales affichées (à t=0) de N qui sont Sains, Infectés et Retirés :
+La fonction initSir(p) calcule les fractions initiales (à t=0) de N qui sont Sains, Infectés et Retirés :
 
 ```{r}
 initSir(0.9)
 ```
 
-b. Paramètres variables $\beta$ et de $\gamma$, qu'on suppose ne pas connaitre :
+Les fonctions de tirage donnent des valeurs aléatoires aux paramètres  $\beta$ et $\gamma$ (qu'on suppose ne pas connaitre) :
 
 Nous avons choisi de modéliser le $R_0$ par une loi uniforme (valeurs comprises entre 0.01 et 0.99).
 
@@ -267,7 +267,7 @@ picI(0.8,0.02,df)
 
 En rouge la courbes des personnes **Infectées**, en bleu celle des **Retirées** et en vert celle des personnes **Saines**
 
-On observe que le pic de l'épidémie dans ces conditions fixées est haut (quasiment toute la population a attrapé le virus (88,7%)) et se touve aux alentour du 10ème jour.Chaque personne malade contamine 40 personnes, ce qui est énorme.
+On observe que le pic de l'épidémie dans ces conditions fixées est haut (quasiment toute la population a attrapé le virus (88,7%)).Chaque personne malade contamine 40 personnes, ce qui est énorme.
 
 Cherchons des pistes d'améliorations.
 
@@ -299,7 +299,7 @@ picI(0.8,0.099,df2)
 ```
 
 
-On observe directement que le pic d'infectés est beaucoup moins haut (un peu plus de 50% (64,7%) de la population à été malade), mais est toujours au niveau du 10eme jour.
+On observe directement que le pic d'infectés est beaucoup moins haut (un peu plus de 50% (64,7%) de la population à été malade).
 
 
 ### 3.2 Taux de transmission $\beta$
@@ -359,7 +359,7 @@ On observe clairement que les mesures prises ont joué un role dans la gestion d
 
 # III. Réalisation d’une étude par simulation d’une quantité caractéristique
 
-Dans notre études précédente, nous avons modélisé différentes courbes avec des valeurs du taux de reproduction $R_0$ maitrisées, car on donnait $\beta$ et $\gamma$.
+Dans notre étude précédente, nous avons modélisé différentes courbes avec des valeurs du taux de reproduction $R_0$ maitrisées, car on fixait $\beta$ et $\gamma$.
 
 En réalité, lors d'une épidémie, on ne connaît pas le $R_0$ précisément, et c'est lui qu'on cherche à determiner. 
 
@@ -416,6 +416,7 @@ print(list_res)
 
 concat <- do.call(rbind.data.frame,list_res)
 head(concat)
+tail(concat)
 
 orderConcat <- concat[order(concat[,3],decreasing=F),]
 print(orderConcat)
@@ -437,15 +438,15 @@ A partir de quelle valeur du $R_0$ les hopitaux sont-ils débordés ?
 
 ## 3. Conclusion
 
-Nous avons tenté de démontrer la corrélation entre la valeur aléatoire du $R_0$ et la date ou le nombre d'infectées sera à son maximun.
+Nous avons tenté de démontrer la corrélation entre la valeur aléatoire du $R_0$ et la date où le nombre d'infectés sera à son maximun.
 
 L'objectif était d'éviter que le pic de personnes malades ne dépasse une certaine valeur arbitraire (nous avions choisi 45% de la population), car il fallait supposer que les capacités hospitalières ou de prise en charge des malades n'étaient pas extensibles. Ce genre de seuil est valable actuellement avec la pandémie que nous vivons. 
 
-En effet, il y a un nombre  $x$ de places en réanimation par exemple, et si le nombre de personnes necessitant une place était suppérieur à la capacité d'acceuil, cela aurait des conséquences dramatiques. 
+En effet, il y a un nombre  $x$ de places en réanimation par exemple, et si le nombre de personnes necessitant une place était supérieur à la capacité d'acceuil, cela aurait des conséquences dramatiques. 
 
-Il est donc nécessaire de pouvoir prévoir quand devrait arriver le pic, et determiner s'il va depasser la valeur critique seuil. Nous determinons alors le $R_0$ acceptable, et s'il s'avère que le la valeur du $R_0$ de l'épidémie est au dessus, il faut vite prendre des mesures pour le faire diminuer.
+Il est donc nécessaire de pouvoir prévoir quand devrait arriver le pic, et determiner s'il va depasser la valeur critique seuil. Nous determinons alors le $R_0$ acceptable, et s'il s'avère que la valeur du $R_0$ de l'épidémie est au dessus, il faut vite prendre des mesures pour le faire diminuer.
 
-Nous avions vu plus haut dans nos simulations qu'il était possible de diminuer le **taux de transmission** $\beta$ par exemple, en instaurant une distanciation sociale, ou rendre obligatoire le port des masques dans les espaces clos. Si les scientifiques et les médecins parvennaient à trouver un médicament efficace, cela pourra augmenter le **taux de guérison** $\gamma$.
+Nous avions vu plus haut dans nos simulations qu'il était possible de diminuer le **taux de transmission** $\beta$ par exemple, en instaurant une distanciation sociale, ou en rendant obligatoire le port du masque dans les espaces clos. Si les scientifiques et les médecins parvenaient à trouver un médicament efficace, cela pourra augmenter le **taux de guérison** $\gamma$.
 
 
 
@@ -453,7 +454,7 @@ Nous avions vu plus haut dans nos simulations qu'il était possible de diminuer 
 
 ### 1. Réalisme
 
-Le modèle SIR est un modèle simple, qui considèrait une population constante au cours du temps, où les naissances et la mortalité étaient négilgées.
+Le modèle SIR est un modèle simple, qui considèrait une population constante au cours du temps, où les naissances et la mortalité étaient négligées.
 
 En effet, pour se rapprocher de la réalité il faudrait prendre en compte ces paramètres.
 
@@ -558,6 +559,7 @@ Le pic correspondant au graphe ci dessus :
 graphe <- picISeir(0.8,0.05,0.75,dfseir)
 print(graphe)
 
+
 ```
 
 
@@ -567,7 +569,15 @@ beta <- tirageBeta(0.1,0.99)
 print(beta)
 gamma <- tirageGamma(0.01,0.99)
 print(gamma)
-tirageAlpha(0.01,0.99)
+alpha <- tirageAlpha(0.01,0.99)
+print(alpha)
+
+
+
+dfseirtest <- seir(50,0.01,0.78889,beta,gamma,alpha,0,0)
+
+
+ggplot(dfseirtest, aes(x=j)) +                                                    geom_line(aes(y = resS), color = "darkgreen") +                         geom_line(aes(y = resE), color = "yellow")+                             geom_line(aes(y = resI),color = "darkred") +                           geom_line(aes(y = resR), color="steelblue")+                              labs(title = "Modèle SEIR", x = "Temps", y="Population", color="L") +    labs(caption = "Représentation graphique.")+theme(plot.caption = element_text(hjust = 0.5, face = "italic", size =10))
 ```
 
 
